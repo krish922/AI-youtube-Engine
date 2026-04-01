@@ -1,26 +1,64 @@
-from openai import OpenAI
+from ollama import Client
 
-client = OpenAI(
-    api_key="YOUR_API_KEY",
-    base_url="https://api.moonshot.cn/v1"
-)
+client = Client(host="http://127.0.0.1:11434")
 
-def generate_script(topic):
 
+def generate_script(topic, lang="en"):
+
+    # 🌍 Language control
+    if lang == "hi":
+        instruction = "Write in Hindi."
+    elif lang == "es":
+        instruction = "Write in Spanish."
+    else:
+        instruction = "Write in English."
+
+    
     prompt = f"""
+    {instruction}
+
     Create a short engaging YouTube script.
 
     Topic: {topic}
 
-    Structure:
-    - Hook (1 line)
-    - Content (2-3 lines)
-    - Ending (1 line)
+    Rules:
+    - Strong hook
+    - Short sentences
+    - 2–3 lines content
+    - Simple language
+    - Engaging ending
+
+    Format:
+    Hook
+    Content
+    Ending
     """
 
-    response = client.chat.completions.create(
-        model="kimi-k2-preview",
-        messages=[{"role": "user", "content": prompt}]
-    )
+    try:
+        # 🧠 Call Ollama
+        response = client.chat(
+            model="mistral",
+            messages=[{"role": "user", "content": prompt}]
+        )
 
-    return response.choices[0].message.content
+        script = response.message.content
+
+        # ⚠️ Safety check
+        if not script:
+            print("⚠️ Empty response from model")
+            return "Here’s something interesting you might not know. Stay curious and keep exploring."
+
+        script = script.strip()
+
+        
+        script = script.replace("Title:", "")
+        script = script.replace("Hook:", "")
+        script = script.replace("Content:", "")
+        script = script.replace("Ending:", "")
+
+        return script
+
+    except Exception as e:
+        print("❌ Script generation error:", e)
+
+        return "Here’s something interesting you might not know. Stay curious and keep exploring."

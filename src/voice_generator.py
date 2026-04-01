@@ -1,10 +1,6 @@
 from gtts import gTTS
 
-def generate_voice(script,filename="output.mp3"):
-
-    clean_script = script.replace("\n"," ")
-
-    tts= gTTS(text=script,lang='hi', slow=False)
-    tts.save(filename)
-
-    return filename 
+def generate_voice(script, lang="en", output="voice.mp3"):
+    tts = gTTS(text=script, lang=lang, slow=False)
+    tts.save(output)
+    return output

@@ -9,8 +9,10 @@ def run_pipeline():
 
     audio = generate_voice(script)
 
-    video = generate_video(script, audio)
+    video = generate_video(script, audio, topic)
 
     script = generate_script(topic)
+
+    print("Script:\n", script)
 
     return topic, script, audio, video

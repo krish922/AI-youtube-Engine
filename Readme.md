@@ -1,197 +1,117 @@
-# 🎬 AI YouTube Engine
+# 🎬 AI YouTube Video Engine
 
-A simple end-to-end pipeline that automatically generates short videos using:
-
-* Topic Generation
-* Script Generation
-* Voice Synthesis
-* Video Rendering
+An automated pipeline that converts text scripts into short AI-generated videos with background visuals, text overlays, and voice narration.
 
 ---
 
-## 🚀 Overview
+## 🚀 Features
 
-This project demonstrates how to build an **automated content generation system** using Python.
-
-Pipeline flow:
-
-```
-Topic → Script → Voice → Video (.mp4)
-```
-
-The system works fully offline (without API), with optional support for AI-based script generation.
+* 🧠 Script-based video generation
+* 🎨 Dynamic background selection based on topic
+* ✍️ Custom text rendering using PIL (centered & wrapped properly)
+* 🔊 Audio narration integration
+* 🎞️ Scene-by-scene video composition using MoviePy
+* 🧩 Modular and customizable pipeline
 
 ---
 
-## ⚙️ Features
+## 🛠️ Tech Stack
 
-* ✅ Automatic topic generation
-* ✅ Dynamic script creation (local mode)
-* ✅ Text-to-speech using gTTS
-* ✅ Video generation using MoviePy
-* ✅ Modular pipeline structure
-* ✅ Easy to extend with AI APIs (OpenAI / Kimi)
+* Python
+* MoviePy
+* PIL (Pillow)
+* NumPy
 
 ---
 
-## 📁 Project Structure
+## 📂 Project Structure
 
 ```
-AI-youtube-Engine/
-│
-├── src/
-│   ├── topic.py               # Topic generator
-│   ├── script_generator.py   # Script logic (local / AI)
-│   ├── voice_generator.py    # gTTS voice generation
-│   ├── video_builder.py      # Video creation
-│   └── pipeline.py           # Connects everything
-│
-├── outputs/                  # Generated files (video/audio)
-├── app.py                    # Entry point
-├── requirements.txt
-└── README.md
+├── assets/                # Background images
+├── output/                # Generated videos (ignored in git)
+├── main.py                # Main execution file
+├── text_renderer.py       # Text rendering logic (PIL)
+├── audio/                 # Audio files
+├── README.md
 ```
 
 ---
 
-## 🛠️ Installation
+## ⚙️ How It Works
 
-### 1. Clone the repository
+1. Input a script (multi-line text)
+2. Each line becomes a video scene
+3. Background is selected based on topic
+4. Text is rendered onto transparent image (PIL)
+5. Audio is synced across scenes
+6. Final video is generated using MoviePy
 
+---
+
+## ▶️ Usage
+
+```bash
+python main.py
 ```
-git clone https://github.com/your-username/AI-youtube-Engine.git
-cd AI-youtube-Engine
+
+Or call the function directly:
+
+```python
+generate_video(script, audio_path, topic)
 ```
 
 ---
 
-### 2. Install dependencies
+## 🧪 Example
+
+**Input Script:**
 
 ```
-pip install -r requirements.txt
+Ever wondered how we navigate through the cosmos?
+Or what causes time dilation?
 ```
+
+**Output:**
+
+* Multi-scene video
+* Centered text overlays
+* Synced narration
 
 ---
 
-## ▶️ How to Run
+## 🔧 Recent Improvements
 
-```
-python app.py
-```
-
----
-
-## 🎯 Output
-
-After running, the system generates:
-
-* 🎧 Audio file (`.mp3`)
-* 🎬 Video file (`.mp4`)
-
-Saved in your project directory.
+* Fixed text centering and overflow issues
+* Implemented proper text wrapping using PIL
+* Improved visual alignment inside frame
+* Cleaner video composition pipeline
 
 ---
 
-## 🧠 How It Works
+## ⚠️ Notes
 
-### 1. Topic Generator
-
-Creates a random or predefined topic.
-
----
-
-### 2. Script Generator
-
-Generates a short script based on topic.
-
-* Local Mode → Uses predefined templates
-* AI Mode (optional) → Uses API (OpenAI / Kimi)
+* Make sure fonts are available (e.g. Arial)
+* Large media files should not be committed (use `.gitignore`)
+* Audio duration is evenly split across script lines
 
 ---
 
-### 3. Voice Generator
+## 📌 Future Improvements
 
-Converts script → speech using gTTS.
-
----
-
-### 4. Video Builder
-
-* Creates background frame
-* Adds text
-* Syncs with audio
-* Exports final video
-
----
-
-## 🔁 Pipeline Flow
-
-```
-run_pipeline()
-
-→ get_topic()
-→ generate_script()
-→ generate_voice()
-→ generate_video()
-```
-
----
-
-## ⚡ Optional: AI Mode
-
-To enable AI-based script generation:
-
-1. Add API key (OpenAI / Kimi)
-2. Update `script_generator.py`
-3. Switch mode:
-
-```
-USE_AI = True
-```
-
-⚠️ API usage may require billing.
-
----
-
-## 🧪 Development Mode
-
-The project runs fully without API using:
-
-```
-USE_AI = False
-```
-
-This ensures:
-
-* No external dependency
-* Easy testing
-* Stable execution
-
----
-
-## 🚧 Future Improvements
-
-* Better video styling (backgrounds, animations)
-* Subtitle timing sync
-* Multi-video batch generation
-* YouTube auto-upload
-* Thumbnail generation
+* Better voice synthesis (more natural tone)
+* Text animation (fade/slide effects)
+* Scene transitions
+* Subtitle-style timing instead of equal splits
+* CLI interface for easier usage
 
 ---
 
 ## 🤝 Contribution
 
-Feel free to fork and improve the project.
+This project is experimental and evolving. Feel free to fork and improve.
 
 ---
 
-## 📌 Note
+## 📄 License
 
-This project is a **learning + experimentation system**
-for building AI-driven content pipelines.
-
----
-
-## ⭐ If you like this project
-
-Give it a star ⭐ and build your own engine.
+MIT License
